@@ -1,6 +1,8 @@
 package com.liuscoding.api.handler;
 
+import com.liuscoding.api.enums.ResultCode;
 import com.liuscoding.api.exception.APIException;
+import com.liuscoding.api.vo.ResultVo;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,16 +19,17 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public String MethodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e){
+    public ResultVo<String> MethodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e){
         //从异常对象中拿到ObjectError对象
         ObjectError error = e.getBindingResult().getAllErrors().get(0);
-        //然后提取错误提示信息进行返回
-        return error.getDefaultMessage();
+        //注意哦，这里传递的响应码枚举
+        return new ResultVo<>(ResultCode.VALIDATE_FAILED,error.getDefaultMessage());
     }
 
     @ExceptionHandler(APIException.class)
-    public String APIExceptionHandler(APIException e){
-        return e.getMsg();
+    public ResultVo<String> APIExceptionHandler(APIException e){
+        //注意哦，这里传递的响应码枚举
+        return new ResultVo<>(ResultCode.FAILED,e.getMsg());
     }
 
 }
