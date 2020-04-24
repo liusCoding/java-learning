@@ -2,7 +2,6 @@ package com.liuscoding.api.controller;
 
 import com.liuscoding.api.entity.User;
 import com.liuscoding.api.service.IUserService;
-import com.liuscoding.api.vo.ResultVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +30,14 @@ public class UserController {
     }
 
     @GetMapping("/getUser")
-    public ResultVo<User> getUser(){
+    public User getUser(){
         User user = new User();
         user.setAccount("133333333");
         user.setId(33L);
         user.setPassword("333333333");
         user.setEmail("333@qq.com");
 
-        return new ResultVo<>(user);
+        return user;
     }
 
 }
