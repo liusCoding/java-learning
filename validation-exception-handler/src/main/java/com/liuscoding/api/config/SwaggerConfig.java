@@ -24,13 +24,13 @@ public class SwaggerConfig {
     /**
      * 是否启用swagger文档
      */
-    @Value("$(swagger.enable)")
+    @Value("${swagger.enable}")
     private boolean enable;
 
     @Bean
     public Docket docket(){
         return new Docket(DocumentationType.SWAGGER_2)
-                .enable(enable)
+                .enable(true)
                 .apiInfo(apiInfo())
                 .select()
                 //这里配置要扫描的包，接口在哪个包就配置哪个包
